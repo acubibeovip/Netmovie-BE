@@ -87,6 +87,8 @@
 															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">Context Crawl</th>
 															<th class="sorting" tabindex="0" aria-controls="example1"
+																rowspan="1" colspan="1">Status Crawl</th>
+															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">Id Categories</th>
 															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">Action</th>
@@ -101,6 +103,7 @@
 																<td>${crawl.number_tag_crawl}</td>
 																<td>${crawl.card_tag_crawl}</td>
 																<td>${crawl.content_crawl}</td>
+																<td>${crawl.status_crawl}</td>
 																<td>${crawl.categories.name_categories}</td>
 																<td class="project-actions text-center"><a
 																	class="btn btn-primary btn-sm"

@@ -39,6 +39,9 @@ public class CrawlElementEntity {
 	@Column(name = "content_crawl")
 	private String content_crawl;
 	
+	@Column(name = "status_crawl")
+	private int status_crawl;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_categories")

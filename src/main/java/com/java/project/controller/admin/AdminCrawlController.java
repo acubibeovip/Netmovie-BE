@@ -1,6 +1,7 @@
 package com.java.project.controller.admin;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.java.project.crawl.SetUpCrawl;
 import com.java.project.crawl.entity.CrawlElementEntity;
@@ -59,4 +61,31 @@ public class AdminCrawlController {
 		
 		return "redirect:/admin/crawl/list";
 	}
+	
+	@GetMapping("/edit")
+	public String CrawlEditController(Model model , @RequestParam("id") Long id) {
+		model.addAttribute("editCrawl", crawlServiceImpl.findById(id).get());
+		model.addAttribute("categoriesEdit",categoriesServiceImpl.findAll());
+		System.out.println(categoriesServiceImpl.findAll());
+		return "/admin/crawl/edit";
+	}
+	
+	@PostMapping("/update")
+	public String updateCrawlController(CrawlElementEntity crawlEntity , Model model) {
+		System.out.println("crawlEntity   -"+crawlEntity);
+		Optional<CrawlElementEntity> crawlEdit = crawlServiceImpl.findById(crawlEntity.getId_element_crawl());
+		
+		
+		crawlEdit.get().setName_web_crawl(crawlEntity.getName_web_crawl());
+		crawlEdit.get().setUrl_crawl(crawlEntity.getUrl_crawl());
+		crawlEdit.get().setNumber_tag_crawl(crawlEntity.getNumber_tag_crawl());
+		crawlEdit.get().setCard_tag_crawl(crawlEntity.getCard_tag_crawl());
+		crawlEdit.get().setStatus_crawl(crawlEntity.getStatus_crawl());
+		crawlEdit.get().setCategories(crawlEntity.getCategories());
+		
+		crawlServiceImpl.save(crawlEdit.get());
+		return "redirect:/admin/crawl/list";
+	}
+	
+	
 }

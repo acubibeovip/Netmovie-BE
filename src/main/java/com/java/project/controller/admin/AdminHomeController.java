@@ -17,6 +17,6 @@ public class AdminHomeController {
 	public String HomeController(Model model) throws IOException {
 	
 		System.out.println(model.getAttribute("video"));
-		return "/admin/dashboard/home2";
+		return "/admin/dashboard/home";
 	}
 }

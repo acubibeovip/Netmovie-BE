@@ -50,4 +50,28 @@ public class UserServiceImpl extends ShareService implements UserService{
 		return userRepo.save(userEntity);
 	}
 
+	@Override
+	public UserEntity findByEmail(String email) {
+		return userRepo.findByEmail(email);
+	}
+
+	@Override
+	public UserEntity findByUserName(String name) {
+		return userRepo.findByName(name);
+	}
+	
+	@Override
+	public UserEntity findByPassword(String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public boolean verify(String verify) {
+		UserEntity user = userRepo.findByVerificationCode(verify);
+		if(user == null) {			
+			return false;
+		} else {
+			return true;
+		}	
+	}
 }

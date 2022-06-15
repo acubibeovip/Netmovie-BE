@@ -17,13 +17,13 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 @Configuration
 public class RabbitMQConfig {
 	
-	@Value("${techgeeknext.rabbitmq.queue}")
+	@Value("${movienet.rabbitmq.queue}")
 	private String queueName;
 	
-	@Value("${techgeeknext.rabbitmq.exchange}")
+	@Value("${movienet.rabbitmq.exchange}")
 	private String exchange;
 	
-	@Value("${techgeeknext.rabbitmq.routingkey}")
+	@Value("${movienet.rabbitmq.routingkey}")
 	private String routingKey;
 	
 	

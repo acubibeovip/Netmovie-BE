@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.java.project.entity.ActorEntity;
 import com.java.project.entity.CategoriesEntity;
+import com.java.project.rabbitmq.service.RabbitMQSender;
 import com.java.project.service.Impl.CategoriesServiceImpl;
 
 @RestController
@@ -24,17 +25,28 @@ public class ClientCategoriesController {
 	@Autowired
 	private CategoriesServiceImpl categoriesServiceImpl;
 	
+	@Autowired
+	private RabbitMQSender rabbitMQSender;
+	
 	@GetMapping("/find-all")
 	public ResponseEntity<Map<String,List>> getCategories(){
 		Map<String,List> categories = new HashMap<String, List>();
 		categories.put("Categories", categoriesServiceImpl.findAll());
+		
+		//send rabbit mq
+		rabbitMQSender.sendFindByAll(categories);
+		
 		return new ResponseEntity<Map<String,List>>(categories,HttpStatus.OK);
 	}
 	
 	@GetMapping("/id-categories/{id-categories}")
 	public Map<String,Optional<CategoriesEntity>> getActorId(@PathVariable("id-categories") Long id){
 		Map<String,Optional<CategoriesEntity>> categoriesId = new HashMap<String,Optional<CategoriesEntity>>();
-		categoriesId .put("Categories-id", categoriesServiceImpl.findById(id));
+		categoriesId.put("Categories-id", categoriesServiceImpl.findById(id));
+		
+		//send rabbit mq
+		rabbitMQSender.sendFindById(categoriesId);
+		
 		return categoriesId ;
 	}
 	
@@ -42,6 +54,10 @@ public class ClientCategoriesController {
 	public Map<String,List> getCategoriesName(@PathVariable("name-categories") String name){
 		Map<String,List> categoriesName = new HashMap<>();
 		categoriesName.put("Categories-name", categoriesServiceImpl.findByName(name));
+		
+		//send rabbit mq
+		rabbitMQSender.sendFindByName(categoriesName);
+		
 		return categoriesName;
 	}
 	

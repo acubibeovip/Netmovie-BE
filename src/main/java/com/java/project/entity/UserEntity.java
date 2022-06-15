@@ -54,6 +54,9 @@ public class UserEntity implements Serializable  {
 	@Column(name = "role")
 	private String role;
 	
+	@Column(name = "verification_code" , updatable = false)
+	private String vertification_code;
+	
 	@Column(name = "status_user")
 	private int status_user;
 	

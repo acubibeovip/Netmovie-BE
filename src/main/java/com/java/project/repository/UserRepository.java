@@ -14,6 +14,13 @@ import com.java.project.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 	@Query("SELECT c FROM UserEntity c WHERE c.username = :username")
 	UserEntity findByName(@Param("username") String username);
-//	@Query("SELECT u FROM UserEntity u WHERE u.username = :username")
-//	public UserEntity findByName(@Param("username") String username);
+	
+	@Query("SELECT u FROM UserEntity u WHERE u.email = :email")
+	UserEntity findByEmail(@Param("email") String email);
+	
+	@Query("SELECT u FROM UserEntity u WHERE u.password = :password")
+	UserEntity findByPassword(@Param("password") String password);
+	
+	@Query("SELECT u FROM UserEntity u WHERE u.vertification_code = ?1")
+	UserEntity findByVerificationCode(String verificationCode);
 }

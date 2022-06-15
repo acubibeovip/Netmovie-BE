@@ -71,10 +71,13 @@ public class AdminCrawlController {
 	}
 	
 	@PostMapping("/update")
-	public String updateCrawlController(CrawlElementEntity crawlEntity , Model model) {
+	public String updateCrawlController(CrawlElementEntity crawlEntity , Model model) throws IOException {
 		System.out.println("crawlEntity   -"+crawlEntity);
 		Optional<CrawlElementEntity> crawlEdit = crawlServiceImpl.findById(crawlEntity.getId_element_crawl());
 		
+		//set up content crawl
+		SetUpCrawl setContentCrawl = new SetUpCrawl(crawlEntity.getName_web_crawl(),crawlEntity.getUrl_crawl(),crawlEntity.getNumber_tag_crawl(),crawlEntity.getCard_tag_crawl());
+				
 		
 		crawlEdit.get().setName_web_crawl(crawlEntity.getName_web_crawl());
 		crawlEdit.get().setUrl_crawl(crawlEntity.getUrl_crawl());
@@ -82,6 +85,7 @@ public class AdminCrawlController {
 		crawlEdit.get().setCard_tag_crawl(crawlEntity.getCard_tag_crawl());
 		crawlEdit.get().setStatus_crawl(crawlEntity.getStatus_crawl());
 		crawlEdit.get().setCategories(crawlEntity.getCategories());
+		crawlEdit.get().setContent_crawl(setContentCrawl.setUpLinkCrawl().toString());
 		
 		crawlServiceImpl.save(crawlEdit.get());
 		return "redirect:/admin/crawl/list";

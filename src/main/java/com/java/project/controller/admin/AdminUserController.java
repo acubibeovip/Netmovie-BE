@@ -30,6 +30,7 @@ public class AdminUserController {
 	public String HomeUserController(Model model) {
 		List<UserEntity> listUser = userServiceImpl.findAll();
 		model.addAttribute("userList",listUser);
+		System.out.println("sss---    "+userServiceImpl.findAll());
 		return "admin/user/list";
 	}
 	

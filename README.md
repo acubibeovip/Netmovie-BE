@@ -10,5 +10,5 @@
 
 -   Step 2:
     -   cd dir NetMovie
-    -   run docker_compose build
-    -   run docker_compose up
+    -   run "docker-compose build"
+    -   run "docker-compose up"

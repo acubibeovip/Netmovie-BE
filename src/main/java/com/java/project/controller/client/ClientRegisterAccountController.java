@@ -101,14 +101,14 @@ public class ClientRegisterAccountController {
 	
 	//create account
 	@GetMapping
-	public ResponseEntity< Map<String,String> > registerAccountController(HttpServletRequest request) throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, MessagingException{
+	public ResponseEntity< Map<String,String> > registerAccountController(UserEntity userEntity,HttpServletRequest request) throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, MessagingException{
 	
 		//read json
-		ObjectMapper objectMapper = new ObjectMapper();	
-		String jsonNeed = "{\"id_user\":1,\"username\":\"new regis\",\"password\":\"112233\",\"name\":\"tran dang vy\",\"phone\":\"0906868797\",\"email\":\"vytdps19913@fpt.edu.vn\",\"address\":\"1134/26 truong sa\",\"gender\":1,\"role\":\"ROLE_USER\",\"status_user\":0,\"product\":{\"id_product\":5,\"name_product\":\"chua dang ky edit\",\"status_product\":0,\"update_product\":\"2022-06-07\",\"modify_product\":\"2022-06-07\",\"description_product\":\"bbbbbbb\"}}";
-
-		//get value in user entity from json
-		UserEntity userEntity = objectMapper.readValue( jsonNeed , UserEntity.class);
+//		ObjectMapper objectMapper = new ObjectMapper();	
+//		String jsonNeed = "{\"id_user\":1,\"username\":\"new hung regis\",\"password\":\"112233\",\"name\":\"tran dang vy\",\"phone\":\"0906868797\",\"email\":\"hungnguyenmai9725@gmail.com\",\"address\":\"1134/26 truong sa\",\"gender\":1,\"role\":\"ROLE_USER\",\"status_user\":0,\"product\":{\"id_product\":5,\"name_product\":\"chua dang ky edit\",\"status_product\":0,\"update_product\":\"2022-06-07\",\"modify_product\":\"2022-06-07\",\"description_product\":\"bbbbbbb\"}}";
+//
+//		//get value in user entity from json
+//		UserEntity userEntity = objectMapper.readValue( jsonNeed , UserEntity.class);
 		
 		//check email user
 		UserEntity userCheckEmail = userServiceImpl.findByEmail(userEntity.getEmail());
@@ -144,17 +144,18 @@ public class ClientRegisterAccountController {
 			userNew.setProduct(userEntity.getProduct());
 			userNew.setVertification_code(randomVerification);
 			userEntity.setVertification_code(randomVerification);
-			userServiceImpl.save(userNew);
+			//userServiceImpl.save(userNew);
 			
 			//send mail verification
-			String url = this.getURL(request);
-			sendMailVerificationEmail(userEntity, url);
+			//String url = this.getURL(request);
+			//sendMailVerificationEmail(userEntity, url);
 			
 			
 		}else {
 			message = "Your email or your user name already exists , please register with new email";
 			responseConsumer.put("Message-Consumer", message);
 		}
+		System.out.println("userEntity" + userEntity);
 		
 		return new ResponseEntity<Map<String,String>>(responseConsumer,HttpStatus.OK);
 	}

@@ -145,7 +145,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>net-movie-with-jar-spring-boot</finalName>
 	</build>
 
 </project>

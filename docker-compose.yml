@@ -1,8 +1,8 @@
 version: '3'
 services:
-  mysql-springbootmovie-container:
+  mysql-springboot-container:
     image: mysql:8.0.28
-    container_name: mysql-springbootmovie-container
+    #container_name: mysql-springboot-container
     ports:
       - 3310:3306
     volumes:
@@ -13,15 +13,15 @@ services:
     environment:
       MYSQL_USER: MYSQL
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: movies
+      MYSQL_DATABASE: test
   springboot-docker-container:
-    image: springbootspringbootmoviecontainer
+    image: springbootdockercontainer
     environment:
       SPRING_PROFILES_ACTIVE: docker
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: springbootmovie-container
+    container_name: springboot-docker-container
     ports:
       - 8080:9999
     volumes:
@@ -29,26 +29,27 @@ services:
     networks:
       - backend
     depends_on:
-      - mysql-springbootmovie-container
-#  rabbitmq:
-#    image: rabbitmq:3-management
-#    container_name: rabbitmq
-#    #restart: always
-#    ports:
-#      - 5672:5672
-#      - 15672:15672
-#    volumes:
-#      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-#      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-#      #- ./rabbit:/var/lib/rabbitmq
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=admin
-#      - RABBITMQ_DEFAULT_PASS=123456
-#    networks:
-#      - backend
+      - mysql-springboot-container
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    #restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      #- ./rabbit:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - backend
 networks:
   backend:
     name: springboot-app-network
 volumes:
   mysql-springboot-data:
   mysql-springboot-config-deamond:
+  

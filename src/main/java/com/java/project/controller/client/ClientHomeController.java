@@ -22,6 +22,7 @@ import com.java.project.entity.CommentEntity;
 import com.java.project.entity.ContactEntity;
 import com.java.project.entity.ProductsEntity;
 import com.java.project.entity.StorageEntity;
+import com.java.project.rabbitmq.service.RabbitMQSender;
 import com.java.project.service.Impl.ActorServiceImpl;
 import com.java.project.service.Impl.CategoriesServiceImpl;
 import com.java.project.service.Impl.CommentServiceImpl;
@@ -32,7 +33,7 @@ import com.java.project.service.Impl.StorageServiceImpl;
 @RestController
 @RequestMapping("/home")
 public class ClientHomeController {
-
+	
 	@Autowired
 	private CategoriesServiceImpl categoriesServiceImpl;
 	
@@ -51,6 +52,7 @@ public class ClientHomeController {
 	@Autowired
 	private ProductsServiceImpl productServiceImpl;
 	
+
 	@GetMapping
 	public ResponseEntity<Map<String,Object>> getAllDataInSQL() {
 		//list categories

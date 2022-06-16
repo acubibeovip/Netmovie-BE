@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 15, 2022 lúc 06:14 AM
+-- Thời gian đã tạo: Th6 16, 2022 lúc 08:13 AM
 -- Phiên bản máy phục vụ: 10.4.18-MariaDB
 -- Phiên bản PHP: 7.4.16
 
@@ -510,17 +510,6 @@ ALTER TABLE `table_storage`
 --
 ALTER TABLE `table_user`
   ADD CONSTRAINT `products-user` FOREIGN KEY (`id_product`) REFERENCES `table_products` (`id_product`);
-
---
--- Các ràng buộc cho bảng `table_user_push`
---
-ALTER TABLE `table_user_push`
-  ADD CONSTRAINT `categories-push` FOREIGN KEY (`id_categories`) REFERENCES `table_categories` (`id_categories`),
-  ADD CONSTRAINT `comment-push` FOREIGN KEY (`id_comment`) REFERENCES `table_comment` (`id_comment`),
-  ADD CONSTRAINT `films-push` FOREIGN KEY (`id_films`) REFERENCES `table_films` (`id_film`),
-  ADD CONSTRAINT `rating-push` FOREIGN KEY (`id_rating`) REFERENCES `table_rating` (`id_rating`),
-  ADD CONSTRAINT `storage-push` FOREIGN KEY (`id_storage`) REFERENCES `table_storage` (`id_storage`),
-  ADD CONSTRAINT `user-push` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

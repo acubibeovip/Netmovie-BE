@@ -61,4 +61,10 @@ public class FilmEntity implements Serializable  {
 	@JoinColumn(name = "id_storage" , nullable = false)
 	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private StorageEntity storage;
+	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_product" , nullable = false)
+//	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+//	private ProductsEntity product;
+	
 }

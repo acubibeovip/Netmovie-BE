@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +30,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.project.repository.UserRepository;
+import com.java.project.service.Impl.ProductsServiceImpl;
 import com.java.project.service.Impl.UserServiceImpl;
 
 import net.bytebuddy.utility.RandomString;
 
 @RestController
 @RequestMapping("/home/register")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClientRegisterAccountController {
 
 	@Autowired
@@ -44,13 +50,15 @@ public class ClientRegisterAccountController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
+	private ProductsServiceImpl productServiceImpl;
+	
+	
+	@Autowired
 	private JavaMailSender mailSend;
 	
 	//url to verify
 	public static String getURL(HttpServletRequest request) {
 		String url = request.getRequestURL().toString();
-		System.out.println("request   " + url);
-		System.out.println("url.replace(request.getServletPath(), \"\")   " + url.replace(request.getServletPath(), ""));
 		return url.replace(request.getServletPath(), "");
 	}
 	
@@ -65,8 +73,7 @@ public class ClientRegisterAccountController {
 		String verifyURL = url + "/home/register/verify?code=" + userEntity.getVertification_code();
 		//end
 		
-		contentMail += "<h3> <a href=\"" + verifyURL + "\">VERIFY ACCOUNT</a></h3>";		
-		System.out.println("verify " +contentMail);
+		contentMail += "<h3> <a href=\"" + verifyURL + "\">VERIFY ACCOUNT</a></h3>";	
 		
 		contentMail += "<p>Thanks you.</p>";
 		
@@ -84,7 +91,6 @@ public class ClientRegisterAccountController {
 	//verify link
 	@GetMapping("/verify")
 	public ResponseEntity<Map<String , String>> verifyCode(@RequestParam("code") String code){
-		System.out.println(userServiceImpl.verify(code));
 		Boolean flag = userServiceImpl.verify(code);
 		Map<String , String> messageVerify = new HashMap<String, String>();
 		if(flag == true) {
@@ -100,15 +106,14 @@ public class ClientRegisterAccountController {
 	}
 	
 	//create account
-	@GetMapping
-	public ResponseEntity< Map<String,String> > registerAccountController(UserEntity userEntity,HttpServletRequest request) throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, MessagingException{
+	@PostMapping
+	public ResponseEntity< Map<String,String> > registerAccountController(@RequestBody String jsonFromFE,HttpServletRequest request) throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException, MessagingException{
 	
 		//read json
-//		ObjectMapper objectMapper = new ObjectMapper();	
-//		String jsonNeed = "{\"id_user\":1,\"username\":\"new hung regis\",\"password\":\"112233\",\"name\":\"tran dang vy\",\"phone\":\"0906868797\",\"email\":\"hungnguyenmai9725@gmail.com\",\"address\":\"1134/26 truong sa\",\"gender\":1,\"role\":\"ROLE_USER\",\"status_user\":0,\"product\":{\"id_product\":5,\"name_product\":\"chua dang ky edit\",\"status_product\":0,\"update_product\":\"2022-06-07\",\"modify_product\":\"2022-06-07\",\"description_product\":\"bbbbbbb\"}}";
-//
-//		//get value in user entity from json
-//		UserEntity userEntity = objectMapper.readValue( jsonNeed , UserEntity.class);
+		ObjectMapper objectMapper = new ObjectMapper();	
+		
+		//get value in user entity from json
+		UserEntity userEntity = objectMapper.readValue( jsonFromFE , UserEntity.class);
 		
 		//check email user
 		UserEntity userCheckEmail = userServiceImpl.findByEmail(userEntity.getEmail());
@@ -130,6 +135,10 @@ public class ClientRegisterAccountController {
 			message = "Register Success , please check your gmail and submit letter";
 			responseConsumer.put("Message-Consumer", message);
 			
+			//change
+			double productDefault = 1;
+			long changeTypeProduct = (long) productDefault ;
+			
 			//set value new and get data in user json
 			UserEntity userNew = new UserEntity();
 			userNew.setUsername(userEntity.getUsername());
@@ -139,24 +148,24 @@ public class ClientRegisterAccountController {
 			userNew.setEmail(userEntity.getEmail());
 			userNew.setAddress(userEntity.getAddress());
 			userNew.setGender(userEntity.getGender());
-			userNew.setRole(userEntity.getRole());
-			userNew.setStatus_user(userEntity.getStatus_user());
-			userNew.setProduct(userEntity.getProduct());
+			userNew.setRole("ROLE_USER");
+			userNew.setStatus_user(0);
+			userNew.setProduct(productServiceImpl.findById(changeTypeProduct).get());
 			userNew.setVertification_code(randomVerification);
 			userEntity.setVertification_code(randomVerification);
-			//userServiceImpl.save(userNew);
+			System.out.println("user new   ---"+userNew);
+			userServiceImpl.save(userNew);
 			
 			//send mail verification
-			//String url = this.getURL(request);
-			//sendMailVerificationEmail(userEntity, url);
+			String url = this.getURL(request);
+			sendMailVerificationEmail(userEntity, url);
 			
+			System.out.println(userNew);
 			
 		}else {
 			message = "Your email or your user name already exists , please register with new email";
 			responseConsumer.put("Message-Consumer", message);
 		}
-		System.out.println("userEntity" + userEntity);
-		
 		return new ResponseEntity<Map<String,String>>(responseConsumer,HttpStatus.OK);
 	}
 	

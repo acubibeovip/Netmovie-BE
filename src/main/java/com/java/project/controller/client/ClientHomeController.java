@@ -20,6 +20,7 @@ import com.java.project.entity.ActorEntity;
 import com.java.project.entity.CategoriesEntity;
 import com.java.project.entity.CommentEntity;
 import com.java.project.entity.ContactEntity;
+import com.java.project.entity.FilmEntity;
 import com.java.project.entity.ProductsEntity;
 import com.java.project.entity.StorageEntity;
 import com.java.project.rabbitmq.service.RabbitMQSender;
@@ -27,6 +28,7 @@ import com.java.project.service.Impl.ActorServiceImpl;
 import com.java.project.service.Impl.CategoriesServiceImpl;
 import com.java.project.service.Impl.CommentServiceImpl;
 import com.java.project.service.Impl.ContactServiceImpl;
+import com.java.project.service.Impl.FilmServiceImpl;
 import com.java.project.service.Impl.ProductsServiceImpl;
 import com.java.project.service.Impl.StorageServiceImpl;
 
@@ -52,6 +54,9 @@ public class ClientHomeController {
 	@Autowired
 	private ProductsServiceImpl productServiceImpl;
 	
+	@Autowired
+	private FilmServiceImpl filmServiceImpl;
+	
 
 	@GetMapping
 	public ResponseEntity<Map<String,Object>> getAllDataInSQL() {
@@ -73,11 +78,16 @@ public class ClientHomeController {
 		//list films
 		List<ProductsEntity> product = productServiceImpl.findAll();
 		
+		//list description film
+		List<FilmEntity> film = filmServiceImpl.findAll(); 
+		
+		System.out.println(film);
 		
 		Map<String , Object> addList = new HashMap<String , Object>();
 		
 		addList.put("Categories",categories);
 		addList.put("Actor",actor);
+		addList.put("Film", film);
 		addList.put("Storage",storage);
 		addList.put("Comment",comment);
 		addList.put("Contact",contact);

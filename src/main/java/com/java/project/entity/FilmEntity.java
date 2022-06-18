@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "table_films")
 @AllArgsConstructor
 @RequiredArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class FilmEntity implements Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,9 +63,9 @@ public class FilmEntity implements Serializable  {
 	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private StorageEntity storage;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_product" , nullable = false)
-//	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
-//	private ProductsEntity product;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_product" , nullable = false)
+	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+	private ProductsEntity product;
 	
 }

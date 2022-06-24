@@ -121,6 +121,17 @@
 											</select> 
 											<span id="category-error" class="error invalid-feedback"></span>
 										</div>
+										
+										<div class="form-group">
+											<label>Prodcut Name</label>
+											 <select class="form-control" id="product" name="product" required="required">
+													<option value="-1" selected="selected">Select Product Name</option>
+												<c:forEach var="product" items="${productList}">
+													<option value="${product.id_product} ">${product.name_product}</option>
+												</c:forEach>
+											</select> 
+											<span id="category-error" class="error invalid-feedback"></span>
+										</div>
 									</div>
 									<!-- /.card-body -->
 								</form>
@@ -207,6 +218,15 @@
 				$('#storage').removeClass('form-control is-invalid');
 				$('#storage').addClass('form-control is-valid');
 				$('#storage-error').html('');
+			}
+			if ( $('#product').val() === null) {
+				hasSubmit.push(1);
+				$('#product').addClass('form-control is-invalid');
+				$('#product-error').html('Please choose category!');
+			} else {
+				$('#product').removeClass('form-control is-invalid');
+				$('#product').addClass('form-control is-valid');
+				$('#product-error').html('');
 			}
 			if (hasSubmit.length === 0) {
 				$('#frmCategories').submit();

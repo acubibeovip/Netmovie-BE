@@ -143,6 +143,24 @@
 													</c:forEach>
 											</select><span id="categoryType-error" class="error invalid-feedback"></span>
 										</div>
+										
+										<div class="form-group">
+											<label>Product Name</label> <select class="form-control"
+												id="product" name="product" required="required">
+												<option value="-1" selected="selected">Select
+													product</option>
+													<c:forEach var ="productEdit" items="${productFilm}">													
+														<c:choose>
+															<c:when test="${filmEdit.product.id_product == productEdit.id_product}">												
+																<option selected="selected" value="${productEdit.id_product}">${productEdit.name_product}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${productEdit.id_product}">${productEdit.name_product}</option>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+											</select><span id="categoryType-error" class="error invalid-feedback"></span>
+										</div>
 									</div>
 									<!-- /.card-body -->
 								</form>
@@ -247,6 +265,15 @@
 				$('#storage').removeClass('form-control is-invalid');
 				$('#storage').addClass('form-control is-valid');
 				$('#storage-error').html('');
+			}
+			if ( $('#product').val() === null) {
+				hasSubmit.push(1);
+				$('#product').addClass('form-control is-invalid');
+				$('#product-error').html('Please choose category!');
+			} else {
+				$('#product').removeClass('form-control is-invalid');
+				$('#product').addClass('form-control is-valid');
+				$('#product-error').html('');
 			}
 			if (hasSubmit.length === 0) {
 				$('#frmCategories').submit();

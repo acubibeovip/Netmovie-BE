@@ -15,6 +15,7 @@ import com.java.project.entity.FilmEntity;
 import com.java.project.service.Impl.ActorServiceImpl;
 import com.java.project.service.Impl.CategoriesServiceImpl;
 import com.java.project.service.Impl.FilmServiceImpl;
+import com.java.project.service.Impl.ProductsServiceImpl;
 import com.java.project.service.Impl.StorageServiceImpl;
 
 @Controller
@@ -33,6 +34,9 @@ public class AdminFilmsController {
 	@Autowired
 	private StorageServiceImpl storageServiceImpl;
 	
+	@Autowired
+	private ProductsServiceImpl productServiceImpl;
+	
 	@GetMapping("/list")
 	public String HomeFilmController(Model model) {
 		model.addAttribute("filmList",filmServiceImpl.findAll());
@@ -44,6 +48,7 @@ public class AdminFilmsController {
 		model.addAttribute("categoriesList",categoriesServiceImpl.findAll());
 		model.addAttribute("actorList",actorServiceImpl.findAll());
 		model.addAttribute("storageList",storageServiceImpl.findAll());
+		model.addAttribute("productList",productServiceImpl.findAll());
 		return "admin/film/add";
 	}
 	
@@ -62,6 +67,7 @@ public class AdminFilmsController {
 		newFilm.setCategories(filmEntity.getCategories());
 		newFilm.setActor(filmEntity.getActor());
 		newFilm.setStorage(filmEntity.getStorage());
+		newFilm.setProduct(filmEntity.getProduct());
 		filmServiceImpl.save(newFilm);
 		return "redirect:/admin/film/list";
 	}
@@ -72,6 +78,7 @@ public class AdminFilmsController {
 		model.addAttribute("categoriesFilm" , 	categoriesServiceImpl.findAll());
 		model.addAttribute("actorFilm" 		,	actorServiceImpl.findAll());
 		model.addAttribute("storageFilm" 	, 	storageServiceImpl.findAll());
+		model.addAttribute("productFilm" 	, 	productServiceImpl.findAll());
 		return "/admin/film/edit";
 	}
 	
@@ -91,6 +98,7 @@ public class AdminFilmsController {
 		filmIn.get().setCategories(filmEntity.getCategories());
 		filmIn.get().setActor(filmEntity.getActor());
 		filmIn.get().setStorage(filmEntity.getStorage());
+		filmIn.get().setProduct(filmEntity.getProduct());
 		
 		filmServiceImpl.save(filmIn.get());
 		return "redirect:/admin/film/list";

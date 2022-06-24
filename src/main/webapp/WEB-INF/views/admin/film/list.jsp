@@ -97,6 +97,8 @@
 															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">Poster Storage </th>
 															<th class="sorting" tabindex="0" aria-controls="example1"
+																rowspan="1" colspan="1">Name Product</th>
+															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">Action</th>
 														</tr>
 													</thead>
@@ -120,6 +122,7 @@
 																	<img src="${pageContext.request.contextPath}/img/${film.storage.image_storage}"
 																		alt="" style="width: 150px; height: 150px">
 																</td>
+																<td>${film.product.name_product}</td>
 																<td class="project-actions text-center"><a
 																	class="btn btn-primary btn-sm"
 																	href="${pageContext.request.contextPath}/admin/film/detail?id=${film.id_film}"><i

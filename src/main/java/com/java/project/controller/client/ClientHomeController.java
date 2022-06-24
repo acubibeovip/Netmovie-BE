@@ -78,10 +78,13 @@ public class ClientHomeController {
 		//list films
 		List<ProductsEntity> product = productServiceImpl.findAll();
 		
-		//list description film
-		List<FilmEntity> film = filmServiceImpl.findAll(); 
+		//change
+		double productDefault = 1;
+		long changeTypeProduct = (long) productDefault ;
 		
-		System.out.println(film);
+		//list free film
+		List<FilmEntity> film = filmServiceImpl.findByFreeFilm(changeTypeProduct); 
+		
 		
 		Map<String , Object> addList = new HashMap<String , Object>();
 		

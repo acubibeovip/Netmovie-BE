@@ -48,5 +48,15 @@ public class FilmServiceImpl extends ShareService implements FilmService {
 	@Override
 	public FilmEntity save(FilmEntity filmEntity) {
 		return filmRepo.save(filmEntity);
-	}	
+	}
+
+	@Override
+	public List<FilmEntity> findByFreeFilm(Long id) {
+		return filmRepo.findByFilmFree(id);
+	}
+
+	@Override
+	public List<FilmEntity> findByGoldFilm(Long id) {
+		return filmRepo.findByFilmGold(id);
+	}
 }

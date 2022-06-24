@@ -23,4 +23,8 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
 	
 	@Query("SELECT u FROM UserEntity u WHERE u.vertification_code = ?1")
 	UserEntity findByVerificationCode(String verificationCode);
+	
+	@Query(value = "SELECT * FROM table_user c WHERE c.username = :username" , nativeQuery = true)
+	UserEntity findDetailByName(@Param("username") String username);
+	
 }

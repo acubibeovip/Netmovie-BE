@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,15 +42,13 @@ public class ClientLoginAccountController {
 	
 	@PostMapping("/login")
 	//@RequestBody String jsonGetFromFE
-	public ResponseEntity<Map<String,String>> loginCheckAccountControllerClient(Model model) throws JsonMappingException, JsonProcessingException, Exception{
-		
-		String jsons = "{\"username\":\"vy\",\"password\":\"1234\"}";
+	public ResponseEntity<Map<String,String>> loginCheckAccountControllerClient(@RequestBody String jsonFromFE ,Model model) throws JsonMappingException, JsonProcessingException, Exception{
 		
 		//read json
 		ObjectMapper readJson = new ObjectMapper();
 		
 		//parse json into user entity
-		UserEntity userInput = readJson.readValue(jsons, UserEntity.class);
+		UserEntity userInput = readJson.readValue(jsonFromFE, UserEntity.class);
 		
 		//create message from fe
 		Map<String,String> jsonResponse = new HashMap<String, String>();

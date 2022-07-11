@@ -42,26 +42,24 @@ public class ClientLoginAccountController {
 	
 	@PostMapping("/login")
 	//@RequestBody String jsonGetFromFE
-	public ResponseEntity<Map<String,String>> loginCheckAccountControllerClient(@RequestBody String jsonFromFE ,Model model) throws JsonMappingException, JsonProcessingException, Exception{
+	public ResponseEntity<Map<String,String>> loginCheckAccountControllerClient(UserEntity userEntity,Model model) throws JsonMappingException, JsonProcessingException, Exception{
 		
-		//read json
-		ObjectMapper readJson = new ObjectMapper();
-		
-		//parse json into user entity
-		UserEntity userInput = readJson.readValue(jsonFromFE, UserEntity.class);
+		System.out.println(userEntity);
+	
+		System.out.println(userEntity.getUsername());
 		
 		//create message from fe
 		Map<String,String> jsonResponse = new HashMap<String, String>();
 		
 		//check username login		
 		try{			
-			UserEntity userDetailLogin = userRepo.findDetailByName(userInput.getUsername());
+			UserEntity userDetailLogin = userRepo.findDetailByName(userEntity.getUsername());
 			//response FE
 
 			BCryptPasswordEncoder newCheckPassword = new BCryptPasswordEncoder();
 			
 			//handle json data fe and data be
-			if(newCheckPassword.matches( userInput.getPassword(),userDetailLogin.getPassword()) == true) {
+			if(newCheckPassword.matches( userEntity.getPassword(),userDetailLogin.getPassword()) == true) {
 				jsonResponse.put("Message-login", "Login Success");
 			}else {
 				jsonResponse.put("Message-login", "Password Wrong, Please Check Again");
@@ -70,7 +68,7 @@ public class ClientLoginAccountController {
 			return new ResponseEntity<Map<String,String>>(jsonResponse ,HttpStatus.OK);
 
 		}catch(Exception io) {
-			jsonResponse.put("Message-login", "Account Exist, Register First");
+			jsonResponse.put("Message-login", "Account Doesn't Exist, Register First");
 			return new ResponseEntity<Map<String,String>>(jsonResponse ,HttpStatus.OK);
 		}
 		

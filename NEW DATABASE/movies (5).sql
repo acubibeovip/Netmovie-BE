@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 16, 2022 lúc 08:13 AM
+-- Thời gian đã tạo: Th7 13, 2022 lúc 09:03 AM
 -- Phiên bản máy phục vụ: 10.4.18-MariaDB
 -- Phiên bản PHP: 7.4.16
 
@@ -20,6 +20,48 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `movies`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `spring_session`
+--
+
+CREATE TABLE `spring_session` (
+  `PRIMARY_ID` char(36) COLLATE utf8_unicode_ci NOT NULL,
+  `SESSION_ID` char(36) COLLATE utf8_unicode_ci NOT NULL,
+  `CREATION_TIME` bigint(20) NOT NULL,
+  `LAST_ACCESS_TIME` bigint(20) NOT NULL,
+  `MAX_INACTIVE_INTERVAL` int(11) NOT NULL,
+  `EXPIRY_TIME` bigint(20) NOT NULL,
+  `PRINCIPAL_NAME` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Đang đổ dữ liệu cho bảng `spring_session`
+--
+
+INSERT INTO `spring_session` (`PRIMARY_ID`, `SESSION_ID`, `CREATION_TIME`, `LAST_ACCESS_TIME`, `MAX_INACTIVE_INTERVAL`, `EXPIRY_TIME`, `PRINCIPAL_NAME`) VALUES
+('d2d99388-69ae-464b-9186-14d6e8231d2f', '788b2b30-967b-41dd-a8ab-314ae48d593a', 1657692381605, 1657695519204, 600, 1657696119204, 'vy');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `spring_session_attributes`
+--
+
+CREATE TABLE `spring_session_attributes` (
+  `SESSION_PRIMARY_ID` char(36) COLLATE utf8_unicode_ci NOT NULL,
+  `ATTRIBUTE_NAME` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `ATTRIBUTE_BYTES` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Đang đổ dữ liệu cho bảng `spring_session_attributes`
+--
+
+INSERT INTO `spring_session_attributes` (`SESSION_PRIMARY_ID`, `ATTRIBUTE_NAME`, `ATTRIBUTE_BYTES`) VALUES
+('d2d99388-69ae-464b-9186-14d6e8231d2f', 'SPRING_SECURITY_CONTEXT', 0xaced00057372003d6f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e636f6e746578742e5365637572697479436f6e74657874496d706c000000000000023a0200014c000e61757468656e7469636174696f6e7400324c6f72672f737072696e676672616d65776f726b2f73656375726974792f636f72652f41757468656e7469636174696f6e3b78707372004f6f72672e737072696e676672616d65776f726b2e73656375726974792e61757468656e7469636174696f6e2e557365726e616d6550617373776f726441757468656e7469636174696f6e546f6b656e000000000000023a0200024c000b63726564656e7469616c737400124c6a6176612f6c616e672f4f626a6563743b4c00097072696e636970616c71007e0004787200476f72672e737072696e676672616d65776f726b2e73656375726974792e61757468656e7469636174696f6e2e416273747261637441757468656e7469636174696f6e546f6b656ed3aa287e6e47640e0200035a000d61757468656e746963617465644c000b617574686f7269746965737400164c6a6176612f7574696c2f436f6c6c656374696f6e3b4c000764657461696c7371007e0004787001737200266a6176612e7574696c2e436f6c6c656374696f6e7324556e6d6f6469666961626c654c697374fc0f2531b5ec8e100200014c00046c6973747400104c6a6176612f7574696c2f4c6973743b7872002c6a6176612e7574696c2e436f6c6c656374696f6e7324556e6d6f6469666961626c65436f6c6c656374696f6e19420080cb5ef71e0200014c00016371007e00067870737200136a6176612e7574696c2e41727261794c6973747881d21d99c7619d03000149000473697a65787000000001770400000001737200426f72672e737072696e676672616d65776f726b2e73656375726974792e636f72652e617574686f726974792e53696d706c654772616e746564417574686f72697479000000000000023a0200014c0004726f6c657400124c6a6176612f6c616e672f537472696e673b787074000a524f4c455f41444d494e7871007e000d737200486f72672e737072696e676672616d65776f726b2e73656375726974792e7765622e61757468656e7469636174696f6e2e57656241757468656e7469636174696f6e44657461696c73000000000000023a0200024c000d72656d6f74654164647265737371007e000f4c000973657373696f6e496471007e000f787074000f303a303a303a303a303a303a303a3174002462663838363731322d356137622d343363322d623365362d316231663738313165323861707372002c636f6d2e6a6176612e70726f6a6563742e73656375726974792e5573657244657461696c73476574496e666f00000000000000010200014c000a75736572456e746974797400244c636f6d2f6a6176612f70726f6a6563742f656e746974792f55736572456e746974793b787073720022636f6d2e6a6176612e70726f6a6563742e656e746974792e55736572456e74697479ac391d1c8b408bcd02000c49000667656e64657249000b7374617475735f757365724c00076164647265737371007e000f4c0005656d61696c71007e000f4c000769645f757365727400104c6a6176612f6c616e672f4c6f6e673b4c00046e616d6571007e000f4c000870617373776f726471007e000f4c000570686f6e6571007e000f4c000770726f647563747400284c636f6d2f6a6176612f70726f6a6563742f656e746974792f50726f6475637473456e746974793b4c0004726f6c6571007e000f4c0008757365726e616d6571007e000f4c001276657274696669636174696f6e5f636f646571007e000f78700000000100000001740011313133342f3236207472756f6e6720736174000e6767676740676d61696c2e636f6d7372000e6a6176612e6c616e672e4c6f6e673b8be490cc8f23df0200014a000576616c7565787200106a6176612e6c616e672e4e756d62657286ac951d0b94e08b0200007870000000000000000174000c7472616e2064616e6720767974003c243279243034246e4a2f5271534f4a484d343551396a343734765a764f537068334967654f594239475a7a4a4c636a46382f6b6d614938623171426174000a30393036383638373937737200346f72672e68696265726e6174652e70726f78792e706f6a6f2e6279746562756464792e53657269616c697a61626c6550726f7879c8e2f1ffb619aa2e0200084c000f636f6d706f6e656e744964547970657400224c6f72672f68696265726e6174652f747970652f436f6d706f73697465547970653b4c001b6964656e7469666965724765747465724d6574686f64436c6173737400114c6a6176612f6c616e672f436c6173733b4c001a6964656e7469666965724765747465724d6574686f644e616d6571007e000f4c001b6964656e7469666965725365747465724d6574686f64436c61737371007e00274c001a6964656e7469666965725365747465724d6574686f644e616d6571007e000f5b001c6964656e7469666965725365747465724d6574686f64506172616d737400125b4c6a6176612f6c616e672f436c6173733b5b000a696e746572666163657371007e00284c000f70657273697374656e74436c61737371007e00277872002d6f72672e68696265726e6174652e70726f78792e416273747261637453657269616c697a61626c6550726f7879926a2d5a450b04610200055a001b616c6c6f774c6f61644f7574736964655472616e73616374696f6e4c000a656e746974794e616d6571007e000f4c000269647400164c6a6176612f696f2f53657269616c697a61626c653b4c0008726561644f6e6c797400134c6a6176612f6c616e672f426f6f6c65616e3b4c001273657373696f6e466163746f72795575696471007e000f787000740026636f6d2e6a6176612e70726f6a6563742e656e746974792e50726f6475637473456e746974797371007e001f000000000000000570707076720026636f6d2e6a6176612e70726f6a6563742e656e746974792e50726f6475637473456e746974793d0bd0f6648e6a9802000649000e7374617475735f70726f647563744c00136465736372697074696f6e5f70726f6475637471007e000f4c000a69645f70726f6475637471007e001a4c000e6d6f646966795f70726f6475637474000f4c6a6176612f73716c2f446174653b4c000c6e616d655f70726f6475637471007e000f4c000e7570646174655f70726f6475637471007e0030787074000d67657449645f70726f6475637471007e003174000d73657449645f70726f64756374757200125b4c6a6176612e6c616e672e436c6173733bab16d7aecbcd5a990200007870000000017671007e001f7571007e003400000001767200226f72672e68696265726e6174652e70726f78792e48696265726e61746550726f7879517e3626971bbe22020000787071007e003171007e00117400027679740000);
 
 -- --------------------------------------------------------
 
@@ -75,6 +117,29 @@ INSERT INTO `table_categories` (`id_categories`, `name_categories`, `status_cate
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `table_coin`
+--
+
+CREATE TABLE `table_coin` (
+  `id_coin` bigint(20) NOT NULL,
+  `amount` float NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `update_coin` date NOT NULL,
+  `modify_coin` date NOT NULL,
+  `id_user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `table_coin`
+--
+
+INSERT INTO `table_coin` (`id_coin`, `amount`, `status`, `update_coin`, `modify_coin`, `id_user`) VALUES
+(1, 11, 1, '2022-07-12', '2022-07-12', 1),
+(2, 6, 1, '2022-07-12', '2022-07-13', 14);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `table_comment`
 --
 
@@ -94,7 +159,7 @@ CREATE TABLE `table_comment` (
 --
 
 INSERT INTO `table_comment` (`id_comment`, `comment`, `status_comment`, `update_comment`, `modify_comment`, `id_user`, `id_ratting`, `id_film`) VALUES
-(1, 'phim hay qua', 1, '2022-05-29 00:00:00', '2022-06-07 00:00:00', 1, 1, 1);
+(1, 'phim hay qua', 0, '2022-05-29 00:00:00', '2022-07-13 00:00:00', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -161,17 +226,41 @@ CREATE TABLE `table_films` (
   `total_rating` float NOT NULL,
   `id_categories` bigint(20) NOT NULL,
   `id_actor` bigint(20) NOT NULL,
-  `id_storage` bigint(20) NOT NULL
+  `id_storage` bigint(20) NOT NULL,
+  `id_product` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `table_films`
 --
 
-INSERT INTO `table_films` (`id_film`, `title_film`, `description_film`, `status_film`, `update_film`, `modify_film`, `total_rating`, `id_categories`, `id_actor`, `id_storage`) VALUES
-(1, 'test edit', 'test edit', 0, '2022-05-04', '2022-06-08', 5, 8, 4, 1),
-(2, 'test edit tu', 'test edit tu', 1, '2022-06-08', '2022-06-08', 0, 2, 2, 13),
-(3, 'jjjjjjjjjjjjjjjj', 'jjjjjjjjjjjjjjjjj', 1, '2022-06-09', '2022-06-09', 0, 1, 1, 1);
+INSERT INTO `table_films` (`id_film`, `title_film`, `description_film`, `status_film`, `update_film`, `modify_film`, `total_rating`, `id_categories`, `id_actor`, `id_storage`, `id_product`) VALUES
+(1, 'test edit', 'test edit', 0, '2022-05-04', '2022-07-12', 5, 8, 4, 1, 1),
+(2, 'test edit tu', 'test edit tu', 1, '2022-06-08', '2022-06-08', 0, 2, 2, 13, 1),
+(3, 'jjjjjjjjjjjjjjjj', 'jjjjjjjjjjjjjjjjj', 1, '2022-06-09', '2022-06-09', 0, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `table_order`
+--
+
+CREATE TABLE `table_order` (
+  `id_order` bigint(20) NOT NULL,
+  `order_date` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `total_price` float NOT NULL,
+  `update_order` datetime NOT NULL,
+  `modify_order` datetime NOT NULL,
+  `id_user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `table_order`
+--
+
+INSERT INTO `table_order` (`id_order`, `order_date`, `status`, `total_price`, `update_order`, `modify_order`, `id_user`) VALUES
+(1, '2022-07-13 06:13:55', 1, 555, '2022-07-13 06:13:55', '2022-07-13 13:58:38', 14);
 
 -- --------------------------------------------------------
 
@@ -314,6 +403,21 @@ CREATE TABLE `table_user_push` (
 --
 
 --
+-- Chỉ mục cho bảng `spring_session`
+--
+ALTER TABLE `spring_session`
+  ADD PRIMARY KEY (`PRIMARY_ID`),
+  ADD UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
+  ADD KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
+  ADD KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`);
+
+--
+-- Chỉ mục cho bảng `spring_session_attributes`
+--
+ALTER TABLE `spring_session_attributes`
+  ADD PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`);
+
+--
 -- Chỉ mục cho bảng `table_actor`
 --
 ALTER TABLE `table_actor`
@@ -324,6 +428,13 @@ ALTER TABLE `table_actor`
 --
 ALTER TABLE `table_categories`
   ADD PRIMARY KEY (`id_categories`);
+
+--
+-- Chỉ mục cho bảng `table_coin`
+--
+ALTER TABLE `table_coin`
+  ADD PRIMARY KEY (`id_coin`),
+  ADD KEY `user-coin` (`id_user`);
 
 --
 -- Chỉ mục cho bảng `table_comment`
@@ -354,7 +465,15 @@ ALTER TABLE `table_films`
   ADD PRIMARY KEY (`id_film`),
   ADD KEY `categories-films` (`id_categories`),
   ADD KEY `film-storage` (`id_storage`),
-  ADD KEY `actor-films` (`id_actor`);
+  ADD KEY `actor-films` (`id_actor`),
+  ADD KEY `FKnesm0jp07xxp9ne2vnng98ig0` (`id_product`);
+
+--
+-- Chỉ mục cho bảng `table_order`
+--
+ALTER TABLE `table_order`
+  ADD PRIMARY KEY (`id_order`),
+  ADD KEY `user-order` (`id_user`);
 
 --
 -- Chỉ mục cho bảng `table_products`
@@ -413,6 +532,12 @@ ALTER TABLE `table_categories`
   MODIFY `id_categories` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT cho bảng `table_coin`
+--
+ALTER TABLE `table_coin`
+  MODIFY `id_coin` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `table_comment`
 --
 ALTER TABLE `table_comment`
@@ -435,6 +560,12 @@ ALTER TABLE `table_crawl_data`
 --
 ALTER TABLE `table_films`
   MODIFY `id_film` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `table_order`
+--
+ALTER TABLE `table_order`
+  MODIFY `id_order` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `table_products`
@@ -471,6 +602,18 @@ ALTER TABLE `table_user_push`
 --
 
 --
+-- Các ràng buộc cho bảng `spring_session_attributes`
+--
+ALTER TABLE `spring_session_attributes`
+  ADD CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `table_coin`
+--
+ALTER TABLE `table_coin`
+  ADD CONSTRAINT `user-coin` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`id_user`);
+
+--
 -- Các ràng buộc cho bảng `table_comment`
 --
 ALTER TABLE `table_comment`
@@ -488,9 +631,16 @@ ALTER TABLE `table_crawl_data`
 -- Các ràng buộc cho bảng `table_films`
 --
 ALTER TABLE `table_films`
+  ADD CONSTRAINT `FKnesm0jp07xxp9ne2vnng98ig0` FOREIGN KEY (`id_product`) REFERENCES `table_products` (`id_product`),
   ADD CONSTRAINT `actor-films` FOREIGN KEY (`id_actor`) REFERENCES `table_actor` (`id_actor`),
   ADD CONSTRAINT `categories-films` FOREIGN KEY (`id_categories`) REFERENCES `table_categories` (`id_categories`),
   ADD CONSTRAINT `film-storage` FOREIGN KEY (`id_storage`) REFERENCES `table_storage` (`id_storage`);
+
+--
+-- Các ràng buộc cho bảng `table_order`
+--
+ALTER TABLE `table_order`
+  ADD CONSTRAINT `user-order` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`id_user`);
 
 --
 -- Các ràng buộc cho bảng `table_rating`

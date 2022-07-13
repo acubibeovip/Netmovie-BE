@@ -247,6 +247,46 @@
                         </li>
                     </ul>
                 </li>
+                <li id="managerproduct" class="nav-item">
+                    <a id="linkproduct" href="#" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Manager Coin Web
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                    	 <li class="nav-item">
+                            <a id="productlist" href="${pageContext.servletContext.contextPath}/admin/coin/list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Coin List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="productlist" href="${pageContext.servletContext.contextPath}/admin/coin/new" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>New Coin Account</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="managerproduct" class="nav-item">
+                    <a id="linkproduct" href="#" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Manager Order
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                    	 <li class="nav-item">
+                            <a id="productlist" href="${pageContext.servletContext.contextPath}/admin/order/list" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Order List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

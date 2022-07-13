@@ -39,7 +39,8 @@ public class AdminActorController {
 	@Autowired
 	private ActorServiceImpl actorServiceImpl;
 		
-	@GetMapping("/list") public String HomeActorController(Model model) {
+	@GetMapping("/list") 
+	public String HomeActorController(Model model) {
 		List<ActorEntity> listActor = actorServiceImpl.findAll();
 		model.addAttribute("listActor",listActor);
 		return "admin/actor/list";

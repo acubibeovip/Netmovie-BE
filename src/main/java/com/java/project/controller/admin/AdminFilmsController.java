@@ -85,7 +85,6 @@ public class AdminFilmsController {
 	@PostMapping("/update")
 	public String saveUpdateFilm(Model model,FilmEntity filmEntity) {
 		
-		System.out.println(filmEntity);
 		//get current date
 		long millis=System.currentTimeMillis();   
 		Date dateNow = new Date(millis); 

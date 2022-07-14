@@ -51,7 +51,7 @@ public class ClientFilmsController {
 	@GetMapping("/gold")
 	public ResponseEntity<Map<String,List>> getGoldFilms() throws JsonMappingException, JsonProcessingException{
 		
-		String jsons = "{\"username\":\"vy\"}";
+		String jsons = "{\"username\":\"chien\"}";
 		
 		//read json
 		ObjectMapper readJson = new ObjectMapper();

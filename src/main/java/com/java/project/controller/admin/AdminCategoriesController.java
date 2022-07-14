@@ -61,7 +61,7 @@ public class AdminCategoriesController {
 	public String updateCategories(Model model , CategoriesEntity categoriesEntity) throws JsonMappingException, JsonProcessingException {
 
 		Optional<CategoriesEntity> categoriesIn = categoriesServiceImpl.findById(categoriesEntity.getId_categories());
-		System.out.println(categoriesIn);
+
 		if(categoriesIn.isPresent() == true) {
 			//get current date
 			long millis=System.currentTimeMillis();   

@@ -1,6 +1,7 @@
 package com.java.project.controller.client;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.java.project.entity.CoinEntity;
 import com.java.project.entity.UserEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.project.repository.UserRepository;
+import com.java.project.service.Impl.CoinServiceImpl;
 import com.java.project.service.Impl.ProductsServiceImpl;
 import com.java.project.service.Impl.UserServiceImpl;
 
@@ -51,6 +55,9 @@ public class ClientRegisterAccountController {
 	
 	@Autowired
 	private ProductsServiceImpl productServiceImpl;
+	
+	@Autowired
+	private CoinServiceImpl coinServiceImpl;
 	
 	
 	@Autowired
@@ -95,8 +102,21 @@ public class ClientRegisterAccountController {
 		Map<String , String> messageVerify = new HashMap<String, String>();
 		if(flag == true) {
 			UserEntity updateStatusUser = useRepo.findByVerificationCode(code);
+			System.out.println("asd "+updateStatusUser);
 			updateStatusUser.setStatus_user(1);
 			userServiceImpl.save(updateStatusUser);
+		//create wallet for new user	
+			//get current date
+			long millis=System.currentTimeMillis();   
+			Date dateNow = new Date(millis); 
+			CoinEntity coinNew = new CoinEntity();
+			coinNew.setAmount(0);
+			coinNew.setStatus(1);
+			coinNew.setUser(updateStatusUser);
+			coinNew.setUpdate_coin(dateNow);
+			coinNew.setModify_coin(dateNow);
+			coinServiceImpl.save(coinNew);
+		//end create wallet for new user
 			messageVerify.put("Message-verify", "Success Verify");
 			return new ResponseEntity<Map<String,String>>(messageVerify,HttpStatus.OK);
 		}else {			
@@ -153,14 +173,11 @@ public class ClientRegisterAccountController {
 			userNew.setProduct(productServiceImpl.findById(changeTypeProduct).get());
 			userNew.setVertification_code(randomVerification);
 			userEntity.setVertification_code(randomVerification);
-			System.out.println("user new   ---"+userNew);
 			userServiceImpl.save(userNew);
 			
 			//send mail verification
 			String url = this.getURL(request);
 			sendMailVerificationEmail(userEntity, url);
-			
-			System.out.println(userNew);
 			
 		}else {
 			message = "Your email or your user name already exists , please register with new email";

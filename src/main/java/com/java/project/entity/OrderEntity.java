@@ -1,5 +1,6 @@
 package com.java.project.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.annotation.Generated;
@@ -13,12 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "table_order")
-public class OrderEntity {
+public class OrderEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +44,7 @@ public class OrderEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user" , nullable = false)
+	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private UserEntity user;
 	
 }

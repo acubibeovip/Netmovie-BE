@@ -17,6 +17,15 @@ public class CoinServiceImpl extends ShareService implements CoinService{
 	@Autowired
 	private CoinRepository coinRepo;
 	
+	
+	public void buyProductByCoin(CoinEntity coinEntity) {
+		coinRepo.save(coinEntity);
+	}
+	
+	public CoinEntity findUserOnTableCoin(Long id) {
+		return coinRepo.findUserOnTableCoin(id);
+	}
+	
 	@Override
 	public CoinEntity updateCoin(Optional<CoinEntity> coinEntity) {
 		return coinRepo.save(coinEntity.get());

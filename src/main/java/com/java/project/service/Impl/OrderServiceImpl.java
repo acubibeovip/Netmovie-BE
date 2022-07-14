@@ -17,6 +17,11 @@ public class OrderServiceImpl extends ShareService implements OrderService {
 	@Autowired
 	private OrderRepository orderRepo;
 	
+	
+	public List<OrderEntity> findAllByUserId(Long id) {
+		return orderRepo.findAllByUserId(id);
+	} 
+	
 	@Override
 	public OrderEntity updateOrder(Optional<OrderEntity> orderEntity) {
 		return orderRepo.save(orderEntity.get());

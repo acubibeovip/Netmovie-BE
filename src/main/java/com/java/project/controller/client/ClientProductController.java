@@ -25,7 +25,7 @@ public class ClientProductController {
 	@Autowired
 	private RabbitMQSender rabbitMQSender;
 	
-	@GetMapping
+	@GetMapping("/find-all")
 	public ResponseEntity<Map<String,List>> getProduct(){
 		Map<String,List> product = new HashMap<String, List>();
 		product.put("Products", productServiceImpl.findAll());

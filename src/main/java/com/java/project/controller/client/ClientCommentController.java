@@ -27,7 +27,6 @@ public class ClientCommentController {
 	public ResponseEntity<Map<String,List>> getCommentController(){
 		Map<String,List> comment = new HashMap<String,List>();
 		comment.put("Comment", commentServiceImpl.findAll());
-		System.out.println(commentServiceImpl.findAll());
 		return new ResponseEntity<Map<String,List>>(comment,HttpStatus.OK);
 	}
 }

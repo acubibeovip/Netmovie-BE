@@ -44,7 +44,7 @@ public class ClientFilmsController {
 		
 		//list free film
 		Map<String,List> film = new HashMap<String, List>();
-		film.put("Films", filmServiceImpl.findByFreeFilm(changeTypeProduct));
+		film.put("Films-Free", filmServiceImpl.findByFreeFilm(changeTypeProduct));
 		return new ResponseEntity<Map<String,List>>(film,HttpStatus.OK);
 	}
 	
@@ -74,10 +74,10 @@ public class ClientFilmsController {
 		
 		
 		if(userDetailLogin.getProduct().getId_product() == 1) {
-			film.put("Films", filmServiceImpl.findByFreeFilm(changeTypeProduct));
+			film.put("Films-Free", filmServiceImpl.findByFreeFilm(changeTypeProduct));
 			return new ResponseEntity<Map<String,List>>(film,HttpStatus.OK); 
 		}else {
-			film.put("Films", filmServiceImpl.findByGoldFilm(changeTypeProduct));
+			film.put("Films-Vip", filmServiceImpl.findByGoldFilm(changeTypeProduct));
 			return new ResponseEntity<Map<String,List>>(film,HttpStatus.OK); 
 		}
 	}

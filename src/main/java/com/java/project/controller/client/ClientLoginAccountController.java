@@ -34,46 +34,48 @@ import com.java.project.service.Impl.UserServiceImpl;
 @Controller
 @RequestMapping("/home")
 public class ClientLoginAccountController {
-	
+
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	
-	@Autowired 
+
+	@Autowired
 	private UserRepository userRepo;
-	
+
 	@PostMapping("/login")
-	//@RequestBody String jsonGetFromFE
-	public ResponseEntity<Map<String,String>> loginCheckAccountControllerClient(UserEntity userEntity,Model model) throws JsonMappingException, JsonProcessingException, Exception{
-		
+	// @RequestBody String jsonGetFromFE
+	public ResponseEntity<Map<String, String>> loginCheckAccountControllerClient(UserEntity userEntity, Model model)
+			throws JsonMappingException, JsonProcessingException, Exception {
+
 		System.out.println("yaya");
-		
+
 		System.out.println(userEntity);
-	
+
 		System.out.println(userEntity.getUsername());
-		
-		//create message from fe
-		Map<String,String> jsonResponse = new HashMap<String, String>();
-		
-		//check username login		
-		try{			
+
+		// create message from fe
+		Map<String, String> jsonResponse = new HashMap<String, String>();
+
+		// check username login
+		try {
 			UserEntity userDetailLogin = userRepo.findDetailByName(userEntity.getUsername());
-			//response FE
+			// response FE
 
 			BCryptPasswordEncoder newCheckPassword = new BCryptPasswordEncoder();
-			
-			//handle json data fe and data be
-			if(newCheckPassword.matches( userEntity.getPassword(),userDetailLogin.getPassword()) == true) {
-				jsonResponse.put("Message-login", "Login Success");
-			}else {
-				jsonResponse.put("Message-login", "Password Wrong, Please Check Again");
-			}
-			
-			return new ResponseEntity<Map<String,String>>(jsonResponse ,HttpStatus.OK);
 
-		}catch(Exception io) {
+			// handle json data fe and data be
+			if (newCheckPassword.matches(userEntity.getPassword(), userDetailLogin.getPassword()) == true) {
+				jsonResponse.put("Message-login", "Login Success");
+			} else {
+				jsonResponse.put("Message-login", "Password Wrong, Please Check Again");
+				return new ResponseEntity<Map<String, String>>(jsonResponse, HttpStatus.UNAUTHORIZED);
+			}
+
+			return new ResponseEntity<Map<String, String>>(jsonResponse, HttpStatus.OK);
+
+		} catch (Exception io) {
 			jsonResponse.put("Message-login", "Account Doesn't Exist, Register First");
-			return new ResponseEntity<Map<String,String>>(jsonResponse ,HttpStatus.OK);
+			return new ResponseEntity<Map<String, String>>(jsonResponse, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 	}
 }

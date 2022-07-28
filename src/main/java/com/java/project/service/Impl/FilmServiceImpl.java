@@ -20,6 +20,17 @@ public class FilmServiceImpl extends ShareService implements FilmService {
 	@Autowired
 	private FilmRepository filmRepo;
 
+	
+	@Override
+	public List<FilmEntity> filmVipByCategories(Long id){
+		return filmRepo.findVipFilmByCategories(id);
+	}
+	
+	@Override
+	public List<FilmEntity> filmFreeByCategories(Long id){
+		return filmRepo.findFreeFilmByCategories(id);
+	}
+	
 	@Override
 	public List<FilmEntity> findAll() {
 		return filmRepo.findAll();
@@ -59,4 +70,5 @@ public class FilmServiceImpl extends ShareService implements FilmService {
 	public List<FilmEntity> findByGoldFilm(Long id) {
 		return filmRepo.findByFilmGold(id);
 	}
+
 }

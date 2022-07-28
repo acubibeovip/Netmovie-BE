@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.java.project.entity.CategoriesEntity;
 import com.java.project.entity.FilmEntity;
 import com.java.project.entity.ProductsEntity;
 
@@ -20,4 +21,10 @@ public interface FilmRepository extends JpaRepository<FilmEntity, Long>{
 	
 	@Query("SELECT f FROM FilmEntity f WHERE f.product.id_product != ?1")
 	List<FilmEntity> findByFilmGold(@Param("id_product") Long id);
+	
+	@Query("SELECT f FROM FilmEntity f WHERE f.categories.id_categories = :id AND product.id_product = 1")
+	List<FilmEntity> findFreeFilmByCategories(@Param("id") Long id);
+	
+	@Query("SELECT f FROM FilmEntity f WHERE f.categories.id_categories = :id AND product.id_product != 1")
+	List<FilmEntity> findVipFilmByCategories(@Param("id") Long id);
 }

@@ -11,4 +11,6 @@ public interface FilmService {
 	FilmEntity save(FilmEntity films);
 	List<FilmEntity> findByFreeFilm(Long id);
 	List<FilmEntity> findByGoldFilm(Long id);
+	List<FilmEntity> filmFreeByCategories(Long id);
+	List<FilmEntity> filmVipByCategories(Long id);
 }

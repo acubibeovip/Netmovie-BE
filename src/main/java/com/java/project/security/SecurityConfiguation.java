@@ -62,23 +62,23 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 		.authorizeRequests()
 		
-		.antMatchers("/home/**").permitAll()
+		//.antMatchers("/home/**").permitAll()
 		
 		//client for free
-//		.antMatchers("/home/actor/**").permitAll()
-//		.antMatchers("/home/categories/**").permitAll()
-//		.antMatchers("/home/comment/**").permitAll()
-//		.antMatchers("/home/films/find-all").permitAll()
-//		.antMatchers("/home").permitAll()
-//		.antMatchers("/home/product/find-all").permitAll()
-//		.antMatchers("/home/register").permitAll()
-//		//end client for free
-//		
-//		
-//		//need login for client
-//		.antMatchers("/home/coin/**").hasRole("USER")
-//		.antMatchers("/home/flims/gold").hasRole("USER")		
-//		.antMatchers("/home/order/list").hasRole("USER")
+		.antMatchers("/home/actor/**").permitAll()
+		.antMatchers("/home/categories/**").permitAll()
+		.antMatchers("/home/comment/**").permitAll()
+		.antMatchers("/home/films/find-all").permitAll()
+		.antMatchers("/home").permitAll()
+		.antMatchers("/home/product/find-all").permitAll()
+		.antMatchers("/home/register").permitAll()
+		//end client for free
+		
+		
+		//need login for client
+		.antMatchers("/home/coin/**").hasRole("USER")
+		.antMatchers("/home/flims/gold").hasRole("USER")		
+		.antMatchers("/home/order/list").hasRole("USER")
 		//end need login for client
 		
 		

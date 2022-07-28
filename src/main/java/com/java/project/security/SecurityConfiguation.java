@@ -62,7 +62,7 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 		.authorizeRequests()
 		
-		//.antMatchers("/home/**").permitAll()
+		.antMatchers("/home").permitAll()
 		
 		//client for free
 		.antMatchers("/home/actor/**").permitAll()
@@ -77,7 +77,7 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 		
 		//need login for client
 		.antMatchers("/home/coin/**").hasRole("USER")
-		.antMatchers("/home/flims/gold").hasRole("USER")		
+		.antMatchers("/home/films/gold").hasRole("USER")		
 		.antMatchers("/home/order/list").hasRole("USER")
 		//end need login for client
 		

@@ -65,6 +65,7 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 		.antMatchers("/home").permitAll()
 		
 		//client for free
+		.antMatchers("/home/login").permitAll()
 		.antMatchers("/home/actor/**").permitAll()
 		.antMatchers("/home/categories/**").permitAll()
 		.antMatchers("/home/comment/**").permitAll()
@@ -77,7 +78,7 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 		
 		//need login for client
 		.antMatchers("/home/coin/**").hasRole("USER")
-		.antMatchers("/home/films/gold").hasRole("USER")		
+		.antMatchers("/home/films/gold").hasRole("USER")
 		.antMatchers("/home/order/list").hasRole("USER")
 		//end need login for client
 		

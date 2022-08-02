@@ -7,10 +7,12 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +37,51 @@ public class ClientFilmsController {
 	
 	@Autowired
 	private HttpSession session;
-	
+
+	@GetMapping("/film-by-actor/{id}")
+	public ResponseEntity<Map<String,List>> getAllFilmFreeByActor(@PathVariable("id") Long id){
+		//List free film
+		Map<String,List> film = new HashMap<String,List>();
+		film.put("Film-Free-By-Actor",filmServiceImpl.filmFreeByActor(id));
+		return new ResponseEntity<Map<String,List>>(film,HttpStatus.OK);
+	}
+
+	@GetMapping("/film-vip-by-actor/{id}")
+	public ResponseEntity<Map<String,List>> getAllFilmVipByActor(@PathVariable("id") Long id) throws JsonMappingException, JsonProcessingException {
+
+		String jsons = "{\"username\":\"vy\"}";
+
+		//readJson
+		ObjectMapper readJson = new ObjectMapper();
+
+		//parse json into user entity
+		UserEntity userInput = readJson.readValue(jsons, UserEntity.class);
+
+		//create message from fe
+		Map<String,String> jsonResponse = new HashMap<String, String>();
+
+
+		//check username login
+		UserEntity userDetailLogin = userRepo.findDetailByName(userInput.getUsername());
+
+
+		//change
+		double productDefault = 1;
+		long changeTypeProduct = (long) productDefault ;
+
+		Map<String,List> filmByActor = new HashMap<String, List>();
+
+
+		if(userDetailLogin.getProduct().getId_product() == 1) {
+			filmByActor.put("Film-Free-By-Actor",filmServiceImpl.filmFreeByActor(id));
+			return new ResponseEntity<Map<String,List>>(filmByActor,HttpStatus.OK);
+		}else {
+			filmByActor.put("Film-Free-By-Actor", filmServiceImpl.filmFreeByActor(id));
+			filmByActor.put("Film-Vip-By-Actor", filmServiceImpl.filmVipByActor(id));
+			return new ResponseEntity<Map<String,List>>(filmByActor,HttpStatus.OK);
+		}
+	}
+
 	@GetMapping("/find-all")
 	public ResponseEntity<Map<String,List>> getAllFilm(){
 		//change

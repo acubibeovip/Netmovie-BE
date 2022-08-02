@@ -20,7 +20,12 @@ public class FilmServiceImpl extends ShareService implements FilmService {
 	@Autowired
 	private FilmRepository filmRepo;
 
-	
+	@Override
+	public List<FilmEntity> filmFreeByActor(Long id) { return filmRepo.findFreeFilmByActor(id); }
+
+	@Override
+	public  List<FilmEntity> filmVipByActor(Long id) { return filmRepo.findVipFilmByActor(id); }
+
 	@Override
 	public List<FilmEntity> filmVipByCategories(Long id){
 		return filmRepo.findVipFilmByCategories(id);

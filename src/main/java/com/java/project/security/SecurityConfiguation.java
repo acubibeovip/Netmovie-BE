@@ -32,17 +32,17 @@ import com.java.project.service.Impl.UserServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
-	
+
 	@Bean
 	public UserDetailsService userDetailService() {
 		return new UserDetailsServiceImpl();
-	} 
-	
+	}
+
 	@Bean
 	public BCryptPasswordEncoder passwordEnCoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authoProvider = new DaoAuthenticationProvider();
@@ -58,79 +58,83 @@ public class SecurityConfiguation extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
+
 		http.csrf().disable()
-		.authorizeRequests()
-		
-		.antMatchers("/home").permitAll()
-		
-		//client for free
-		.antMatchers("/home/login").permitAll()
-		.antMatchers("/home/actor/**").permitAll()
-		.antMatchers("/home/categories/**").permitAll()
-		.antMatchers("/home/comment/**").permitAll()
-		.antMatchers("/home/films/find-all").permitAll()
-		.antMatchers("/home").permitAll()
-		.antMatchers("/home/product/find-all").permitAll()
-		.antMatchers("/home/register").permitAll()
-		//end client for free
-		
-		
-		//need login for client
-		.antMatchers("/home/coin/**").hasRole("USER")
-		.antMatchers("/home/films/gold").hasRole("USER")
-		.antMatchers("/home/order/list").hasRole("USER")
-		//end need login for client
-		
-		
-		//login admin
-		.antMatchers("/admin/**").hasRole("ADMIN")
-        //end login admin
-		
-		
-		.anyRequest()
-        .authenticated()
-        .and()
-        .exceptionHandling()
-        .accessDeniedPage("/access-denied")
+				.authorizeRequests()
 
-        .and()
-        .formLogin()
-        //.loginPage("http://localhost:4200/sign-in").permitAll()
-		.successHandler(new AuthenticationSuccessHandler() {
-			
-			@Override
-			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException  {
-				String role ="";
-				authentication.getAuthorities().forEach(r->{
-					 try {
-                         if (r.getAuthority().equals("ROLE_USER")){
-                             response.sendRedirect(request.getContextPath()+"/");
-                         }else{
-                             response.sendRedirect(request.getContextPath()+"/admin");
-                         }
-                     }catch (IOException e){
-                         e.printStackTrace();
-                     }
-				});
-			}
-		})
-		 .passwordParameter("password")
-         .usernameParameter("username")
-         .and()
-         .rememberMe()
-         .rememberMeParameter("remember-me")
-         .and()
-         .logout()
-         .logoutUrl("/logout")
-         .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
-         .clearAuthentication(true)
-         .invalidateHttpSession(true)
-         .deleteCookies("JSESSIONID","remember-me")
-         .logoutSuccessUrl("/");
+				.antMatchers("/home").permitAll()
 
-		
-	
+				//client for free
+				.antMatchers("/home/films/film-by-actor/**").permitAll()
+				.antMatchers("/home/login").permitAll()
+				.antMatchers("/home/actor/**").permitAll()
+				.antMatchers("/home/categories/**").permitAll()
+				.antMatchers("/home/comment/**").permitAll()
+				.antMatchers("/home/films/find-all").permitAll()
+				.antMatchers("/home").permitAll()
+				.antMatchers("/home/product/find-all").permitAll()
+				.antMatchers("/home/register").permitAll()
+				//end client for free
+
+
+				//need login for client
+				.antMatchers("/home/films/film-vip-by-actor/**").hasRole("USER")
+				.antMatchers("/home/coin/**").hasRole("USER")
+				.antMatchers("/home/flims/gold").hasRole("USER")
+				.antMatchers("/home/order/list").hasRole("USER")
+				//end need login for client
+
+
+				//login admin
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				//end login admin
+
+
+				.anyRequest()
+				.authenticated()
+				.and()
+				.exceptionHandling()
+				.accessDeniedPage("/access-denied")
+
+				.and()
+				.formLogin()
+
+
+				//.loginPage("/home/login").permitAll()
+				.successHandler(new AuthenticationSuccessHandler() {
+
+					@Override
+					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException  {
+						String role ="";
+						authentication.getAuthorities().forEach(r->{
+							try {
+								if (r.getAuthority().equals("ROLE_USER")){
+									response.sendRedirect(request.getContextPath()+"/");
+								}else{
+									response.sendRedirect(request.getContextPath()+"/admin");
+								}
+							}catch (IOException e){
+								e.printStackTrace();
+							}
+						});
+					}
+				})
+				.passwordParameter("password")
+				.usernameParameter("username")
+				.and()
+				.rememberMe()
+				.rememberMeParameter("remember-me")
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
+				.clearAuthentication(true)
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID","remember-me")
+				.logoutSuccessUrl("/");
+
+
+
 //		http.authorizeRequests()
 //			.antMatchers("/admin/**").hasAnyRole("ADMIN")
 //			.antMatchers("/").hasAnyRole("ADMIN")

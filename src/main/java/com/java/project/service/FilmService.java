@@ -13,4 +13,6 @@ public interface FilmService {
 	List<FilmEntity> findByGoldFilm(Long id);
 	List<FilmEntity> filmFreeByCategories(Long id);
 	List<FilmEntity> filmVipByCategories(Long id);
+	List<FilmEntity> filmFreeByActor(Long id);
+	List<FilmEntity> filmVipByActor(Long id);
 }

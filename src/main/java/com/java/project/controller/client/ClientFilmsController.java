@@ -3,6 +3,7 @@ package com.java.project.controller.client;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -37,6 +35,15 @@ public class ClientFilmsController {
 	
 	@Autowired
 	private HttpSession session;
+
+
+	@GetMapping("/details")
+	public ResponseEntity<Map<String,FilmEntity>> getDetailFilm(@RequestParam("id") Long id) {
+
+		Map<String,FilmEntity> film = new HashMap<>();
+		film.put("Film-Detail",filmServiceImpl.findById(id).get());
+		return new ResponseEntity<Map<String,FilmEntity>>(film,HttpStatus.OK);
+	}
 
 	@GetMapping("/film-by-actor/{id}")
 	public ResponseEntity<Map<String,List>> getAllFilmFreeByActor(@PathVariable("id") Long id){

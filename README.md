@@ -7,3 +7,8 @@ STEP 2:
     +cd dir NetMovie
     +run docker_compose build
     +run docker_compose up
+
+pc569ad220c764a8a895bbf5b1b3430d2fca6140c52cb56b4f471eb4881800e8d
+
+
+
